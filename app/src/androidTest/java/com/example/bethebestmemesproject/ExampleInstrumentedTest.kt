@@ -1,5 +1,6 @@
 package com.example.bethebestmemesproject
 
+import androidx.compose.runtime.Composable
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
@@ -20,5 +21,13 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.example.bethebestmemesproject", appContext.packageName)
+    }
+
+    @Composable
+    @Test
+    fun TestOverAllImplementation() {
+        OnChipClick(200)
+        OnChipClick(404)
+        OnChipClick(500)
     }
 }

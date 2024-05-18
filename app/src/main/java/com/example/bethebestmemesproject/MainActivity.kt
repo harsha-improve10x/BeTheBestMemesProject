@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BeTheBestMemesProjectTheme {
-
+                IntegrateAllComponents()
             }
         }
     }
@@ -108,7 +108,7 @@ fun BlockLayout() {
 
 @Composable
 fun SingleChipBlock1(statusCode: Int, onClick: () -> Unit) {
-//   Chip("HTTP$statusCode", onClick = {onClick(statusCode)}, modifier = Modifier.padding(8.dp))
+//Chip("HTTP$statusCode", onClick = {onClick(statusCode)}, modifier = Modifier.padding(8.dp))
 }
 
 @Composable
@@ -161,15 +161,13 @@ fun mapStatusCodeToImageUrl(statusCode: Int): String {
 @Composable
 fun TestChipClickHandling() {
     val statusCode = 404
-    HandleChipClick(statusCode) { imageUrl ->
-        assert("https://picsum.photos/404")
-    }
+    HandleChipClick(statusCode, updateImageUrl = {})
 }
 
 @Composable
 fun AppLayout(statusCode: List<Int>, imageUrl: String, onChipClick: (Int) -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
-        TopBar()
+        //TopBar()
         Spacer(modifier = Modifier.height(16.dp))
         BlockLayout1(statusCode = statusCode, imageUrl = imageUrl, onChipClick = onChipClick)
     }
@@ -207,10 +205,43 @@ fun TestImageHandling() {
     HandleImage(statusCode)
 }
 
+@Composable
+fun OnChipClick(statusCode: Int) {
+    HandleImage(statusCode)
+}
+
+@Composable
+fun TestOverAllImplementation() {
+    OnChipClick(200)
+    OnChipClick(404)
+    OnChipClick(500)
+}
+
+@Composable
+fun IntegrateAllComponents() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        BlockLayout()
+        AppLayout(
+            statusCode = listOf(200, 404, 500),
+            imageUrl = "https://picsum.photos/200",
+            onChipClick = {})
+        TestChipClickHandling()
+        TestImageHandling()
+        TestOverAllImplementation()
+    }
+}
+
+@Composable
+fun TestAppFunctionality() {
+    TestImageHandling()
+    TestOverAllImplementation()
+    TestChipClickHandling()
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BeTheBestMemesProjectTheme {
-        TestImageHandling()
+        IntegrateAllComponents()
     }
 }
